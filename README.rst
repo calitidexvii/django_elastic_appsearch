@@ -316,6 +316,7 @@ Example with all settings entries
     APPSEARCH_USE_HTTPS = False
     APPSEARCH_CHUNK_SIZE = 50
     APPSEARCH_INDEXING_ENABLED = True
+    APPSEARCH_AUTOINDEXING_ENABLED = True
 
 Writing Tests
 =============
