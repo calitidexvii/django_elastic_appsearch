@@ -100,7 +100,11 @@ class AppSearchModel(models.Model):
 
     def get_appsearch_document_id(self):
         """Get the unique document ID."""
-        return '{}_{}'.format(type(self).__name__, self.pk)
+        _serialiser = self.serialise_for_appsearch()
+        if _serialiser.get('id'):
+            return _serialiser['id']
+        else:
+            return '{}_{}'.format(type(self).__name__, self.pk)
 
     def index_to_appsearch(self, update_only=False):
         """Index the object to appsearch."""
@@ -119,7 +123,7 @@ class AppSearchModel(models.Model):
     def delete_from_appsearch(self):
         """Delete the object from appsearch."""
         if apps.get_app_config('django_elastic_appsearch').enabled:
-            self.get_appsearch_client().destroy_documents(
+            print(self.get_appsearch_client().destroy_documents(
                 self.get_appsearch_engine_name(),
                 [self.get_appsearch_document_id()]
-            )
+            ))
